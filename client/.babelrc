@@ -1,0 +1,22 @@
+{
+  "presets": ["@babel/preset-react"],
+  "env": {
+    "development": {
+      "presets": [["@babel/preset-react", { "development": true }]]
+    }
+  },
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@layout": "./client/src/components/layout",
+          "@chat": "./client/src/components/pages/chat",
+          "@profile": "./clientsrc/components/pages/profile",
+          "@pages": "./client/src/components/pages",
+          "@state": "./client/src/state"
+        }
+      }
+    ]
+  ]
+}
