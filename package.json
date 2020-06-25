@@ -7,6 +7,13 @@
     "type": "git",
     "url": "git+https://github.com/dev-empire/coder-connect.git"
   },
+  "scripts": {
+    "start": "node index.js",
+    "client": "yarn --cwd client start",
+    "server": "nodemon index.js",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "client:install": "yarn --cwd client install"
+  },
   "author": "Al-amin Yusuf <alaminyusuf131@gmail.com>",
   "license": "MIT",
   "dependencies": {
