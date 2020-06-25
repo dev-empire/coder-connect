@@ -10,11 +10,11 @@
       "module-resolver",
       {
         "alias": {
-          "@layout": "./client/src/components/layout",
-          "@chat": "./client/src/components/pages/chat",
-          "@profile": "./clientsrc/components/pages/profile",
-          "@pages": "./client/src/components/pages",
-          "@state": "./client/src/state"
+          "@layout": "./src/components/layout",
+          "@chat": "./src/components/pages/chat",
+          "@profile": "./src/components/pages/profile",
+          "@pages": "./src/components/pages",
+          "@state": "./src/state"
         }
       }
     ]

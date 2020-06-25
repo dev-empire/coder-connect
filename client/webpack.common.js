@@ -20,7 +20,7 @@ const rules = [
   },
 ]
 module.exports = {
-  entry: path.join(__dirname, 'client', 'src/index.js'),
+  entry: path.join(__dirname, 'src', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',

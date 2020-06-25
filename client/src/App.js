@@ -1,11 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable import/no-unresolved */
-/* eslint-disable import/order */
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
-import { GlobalStyle } from './style/Global'
-import { theme } from './style/theme'
 
 import ChatPage from '@chat/ChatPage'
 import Chat from '@chat/Chat'
@@ -15,6 +11,10 @@ import Login from '@pages/Login'
 import SignUp from '@pages/SignUp'
 import Profile from '@profile/Profile'
 import Settings from '@pages/Settings'
+
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyle } from './style/Global'
+import { theme } from './style/theme'
 
 // import context
 import State from './state/AppState'

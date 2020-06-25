@@ -1,0 +1,19 @@
+{
+  "name": "chat-hub",
+  "version": "1.0.0",
+  "description": "coder-conect server",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-empire/coder-connect.git"
+  },
+  "author": "Al-amin Yusuf <alaminyusuf131@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
