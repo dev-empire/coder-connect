@@ -50,7 +50,7 @@ const Body = styled.div`
     width: 95%;
     margin-top: 1px;
     color: #000;
-    height: 2.5rem;
+  height: 2.5rem;
     /* margin-top: 1.5rem;
     margin-bottom: 1.5rem; */
   }
