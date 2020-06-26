@@ -1,28 +1,28 @@
 import React from 'react'
+import axios from 'axios'
 import Context from './appContext'
 import AppReducer from './AppReducer'
 
 // import types
-import { SET_LOADING, USERS } from './TYPES'
+import { SET_LOADING, GET_USERS } from './TYPES'
 
-const AppState = (props) => {
+const AppState = props => {
   const { children } = props
 
   const initialState = {
-    users: [
-      { name: 'John', id: 11 },
-      { name: 'Sam', id: 342 },
-      { name: ' Carly', id: 32 },
-    ],
+    users: [],
     loading: false,
   }
 
   const [state, dispatch] = React.useReducer(AppReducer, initialState)
 
-  const getUsers = () => {
+  const getUsers = async () => {
+    const res = await axios.get('http://localhost:4000/users')
     dispatch({
-      type: USERS,
+      type: GET_USERS,
+      payload: res.data,
     })
+    console.log(res.data)
   }
 
   const setLoading = () => {
@@ -31,6 +31,7 @@ const AppState = (props) => {
 
   const value = {
     users: state.users,
+    loading: state.loading,
     getUsers,
     setLoading,
   }

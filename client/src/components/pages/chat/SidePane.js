@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -7,13 +7,12 @@ import Context from '@state/appContext'
 
 const ChatBar = () => {
   const state = useContext(Context)
-  const { users } = state
+  const { users, getUsers } = state
   console.log(users)
-  // const users = [
-  //   { name: John, id: 11 },
-  //   { name: Sam, id: 32 },
-  //   { name: Carly, id: 32 },
-  // ]
+
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   return (
     <Body>
