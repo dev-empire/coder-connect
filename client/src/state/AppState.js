@@ -17,12 +17,12 @@ const AppState = props => {
   const [state, dispatch] = React.useReducer(AppReducer, initialState)
 
   const getUsers = async () => {
+    setLoading()
     const res = await axios.get('http://localhost:4000/users')
     dispatch({
       type: GET_USERS,
       payload: res.data,
     })
-    console.log(res.data)
   }
 
   const setLoading = () => {

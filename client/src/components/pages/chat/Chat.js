@@ -1,10 +1,9 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Send, ArrowLeftOutlined } from '@material-ui/icons/'
 
-const Chat = (useParams) => {
-  console.log(useParams)
+const Chat = () => {
   return (
     <div>
       <Link to="/chat">

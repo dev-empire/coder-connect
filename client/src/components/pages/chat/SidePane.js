@@ -2,29 +2,33 @@ import React, { useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
+import Loading from '@layout/Loading'
+
 // import context
 import Context from '@state/appContext'
 
 const ChatBar = () => {
   const state = useContext(Context)
-  const { users, getUsers } = state
-  console.log(users)
-
+  const { loading, users, getUsers } = state
   useEffect(() => {
     getUsers()
   }, [])
 
-  return (
-    <Body>
-      {users.map(({ id, name }) => (
-        <div key={Math.floor(Math.random() * 1000000)}>
-          <NavLink to={`/chat/${id}`} activeStyle={{ color: 'blue' }}>
-            <Div>{name}</Div>
-          </NavLink>
-        </div>
-      ))}
-    </Body>
-  )
+  if (loading) {
+    return <Loading />
+  } else {
+    return (
+      <Body>
+        {users.flatMap(({ _id, name }) => (
+          <div key={Math.floor(Math.random() * 1000000)}>
+            <NavLink to={`/chat/${_id}`} activeStyle={{ color: 'blue' }}>
+              <Div>{name}</Div>
+            </NavLink>
+          </div>
+        ))}
+      </Body>
+    )
+  }
 }
 
 const Body = styled.div`
@@ -46,7 +50,7 @@ const Body = styled.div`
     width: 95%;
     margin-top: 1px;
     color: #000;
-    height: 3rem;
+    height: 2.5rem;
     /* margin-top: 1.5rem;
     margin-bottom: 1.5rem; */
   }

@@ -16,7 +16,7 @@ const SideNav = () => {
         </div>
       </NavLink>
       <NavLink
-        to="/chatpage"
+        to="/chat"
         style={{ color: '#f4f4f4' }}
         activeStyle={{ color: 'blue' }}
       >
