@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
+const bcrypt = require('bcryptjs')
 
 router.get('/', (req, res) => {
   User.find()
@@ -30,22 +31,22 @@ router.post('/', async (req, res) => {
       password,
     })
     /* HASH PASSWORD */
-    /* 
+
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err
         newUser.password = hash
-        newUser.save()
-          .then(user => {
-            name: user.name
-            email: user.email
-            phone: user.phone
-            age: user.age
-            password: user.password
+        newUser.save().then((user) => {
+          res.json({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            age: user.age,
+            password: user.password,
           })
+        })
       })
     })
-    */
   })
   try {
     await newUser.save().then((user) => res.json(user))
