@@ -5,6 +5,7 @@ const connetToDB = async () => {
     mongoose.connect('mongodb://localhost:27017/code-chat', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     }),
       console.log('Mongoose connected...')
   } catch (error) {
