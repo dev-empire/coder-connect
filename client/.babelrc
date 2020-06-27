@@ -14,7 +14,7 @@
           "@chat": "./src/components/pages/chat",
           "@profile": "./src/components/pages/profile",
           "@pages": "./src/components/pages",
-          "@state": "./src/state"
+          "@actions": "./src/actions"
         }
       }
     ]

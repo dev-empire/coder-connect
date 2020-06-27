@@ -4,31 +4,37 @@ import styled from 'styled-components'
 
 import Loading from '@layout/Loading'
 
-// import context
-import Context from '@state/app/appContext'
+// import redux store
+import { connect } from 'react-redux'
+import { getItems } from '@actions/userActions'
+import PropTypes from 'prop-types'
 
-const ChatBar = () => {
-  const state = useContext(Context)
-  const { loading, users, getUsers } = state
+const SidePane = ({ users }) => {
   useEffect(() => {
-    getUsers()
+    props.getItems()
   }, [])
 
-  if (loading) {
-    return <Loading />
-  } else {
-    return (
-      <Body>
-        {users.flatMap(({ _id, name }) => (
-          <div key={Math.floor(Math.random() * 1000000)}>
-            <NavLink to={`/chat/${_id}`} activeStyle={{ color: 'blue' }}>
-              <Div>{name}</Div>
-            </NavLink>
-          </div>
-        ))}
-      </Body>
-    )
-  }
+  const { users } = props.user.users
+  // if (loading) {
+  //   return <Loading />
+  // } else {
+  return (
+    <Body>
+      {users.flatMap(({ _id, name }) => (
+        <div key={Math.floor(Math.random() * 1000000)}>
+          <NavLink to={`/chat/${_id}`} activeStyle={{ color: 'blue' }}>
+            <Div>{name}</Div>
+          </NavLink>
+        </div>
+      ))}
+    </Body>
+  )
+  // }
+}
+
+SidePane.propTypes = {
+  getItems: PropTypes.func.isRequired,
+  users: PropTypes.object.isRequired,
 }
 
 const Body = styled.div`
@@ -63,4 +69,8 @@ const Div = styled.div`
   border-bottom: #ccc solid;
 `
 
-export default ChatBar
+const mapStateToProps = state => ({
+  user: state.user,
+})
+
+export default connect(mapStateToProps, { getItems })(SidePane)

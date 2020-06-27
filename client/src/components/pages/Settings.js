@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Edit, ExitToApp, Person } from '@material-ui/icons'
 
 const Settings = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
   }
   return (

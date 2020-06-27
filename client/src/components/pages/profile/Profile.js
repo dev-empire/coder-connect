@@ -2,13 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ProfilePic from './ProfilePic'
-import {
-  Person,
-  Phone,
-  Face,
-  Flag,
-  SettingsApplications,
-} from '@material-ui/icons'
+import { Person, Phone, Face, Flag, SettingsApplications } from '@material-ui/icons'
 
 const Profile = () => {
   return (
