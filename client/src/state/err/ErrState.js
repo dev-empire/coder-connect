@@ -4,7 +4,6 @@ import ErrContext from './errContext'
 import { GET_ERRORS, CLEAR_ERRORS } from '../TYPES'
 
 const ErrState = props => {
-  const { children } = props
   const initialState = {
     msg: {},
     status: null,
@@ -13,9 +12,10 @@ const ErrState = props => {
 
   const [state, dispatch] = useReducer(ErrReducer, initialState)
 
-  const getErrors = () => {
+  const getErrors = (msg, status, id = null) => {
     dispatch({
       type: GET_ERRORS,
+      payload: { msg, status, id },
     })
   }
 
@@ -33,5 +33,7 @@ const ErrState = props => {
     clearErrors,
   }
 
-  return <ErrContext.Provider value={value}>{children}</ErrContext.Provider>
+  return <ErrContext.Provider value={value}>{props.children}</ErrContext.Provider>
 }
+
+export default ErrState

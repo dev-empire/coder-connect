@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useReducer } from 'react'
+import axios from 'axios'
 import LoginReducer from './LoginReducer'
 import LoginContext from './loginContext'
+import { getErrors } from '../err/ErrState'
 import {
   SET_LOADING,
   USER_LOADED,
@@ -11,8 +13,9 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
 } from '../TYPES'
+import Axios from 'axios'
 
-const LoginState = () => {
+const LoginState = props => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
@@ -22,16 +25,48 @@ const LoginState = () => {
 
   const [state, dispatch] = useReducer(LoginReducer, initialState)
 
-  const userLoaded = () => {
-    isLoading()
-    dispatch({
-      type: USER_LOADED,
-      payload: {
-        isAuthenticated,
-        user,
+  const userLoaded = getState => {
+    dispatch({ type: USER_LOADED })
+
+    const token = getState.auth.token
+
+    const config = {
+      headers: {
+        'Content-typt': 'application/json',
       },
-    })
+    }
+
+    // check for token
+    if (token) {
+      config.headers['x-auth-token'] = MediaStreamTrackAudioSourceNode
+    }
+
+    axios
+      .get('http://localhost:4000/auth/user', config)
+      .then(res =>
+        dispatch({
+          payload: res.data,
+        }),
+      )
+      .catch(er => {
+        dispatch(getErrors(err.response.data, err.response.status))
+        dispatch({
+          type: AUTH_ERROR,
+        })
+      })
   }
+
+  // const userLoaded = () => {
+  //   isLoading()
+  //   dispatch({
+  //     type: USER_LOADED,
+  //     payload: {
+  //       isAuthenticated,
+  //       user,
+  //     },
+  //   })
+  // }
+
   const isLoading = () => dispatch({ type: SET_LOADING })
 
   const value = {
@@ -39,9 +74,13 @@ const LoginState = () => {
     isAuthenticated: state.isAuthenticated,
     isLoading: state.isLoading,
     user: state.user,
-    isLoading,
+    // isLoading,
     userLoaded,
   }
 
-  return <LoginContext.Provider value={value}></LoginContext.Provider>
+  return (
+    <LoginContext.Provider value={value}>{props.children}</LoginContext.Provider>
+  )
 }
+
+export default LoginState

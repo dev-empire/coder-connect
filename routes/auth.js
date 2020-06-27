@@ -49,10 +49,7 @@ router.post('/', async (req, res) => {
 router.get('/user', auth, (req, res) => {
   User.findById(req.body.id)
     .select('-password')
-    .then(
-      (user) => res.status(200).json(user),
-      () => console.log(user)
-    )
+    .then((user) => res.status(200).json(user))
 })
 
 module.exports = router
