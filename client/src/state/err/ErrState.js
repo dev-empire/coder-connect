@@ -14,26 +14,24 @@ const ErrState = props => {
   const [state, dispatch] = useReducer(ErrReducer, initialState)
 
   const getErrors = () => {
-    type: GET_ERRORS,
-      dispatch({
-        payload: {
-          msg: action.payload.msg,
-          status: action.payload.staus,
-          id: action.payload.id,
-        },
-      })
+    dispatch({
+      type: GET_ERRORS,
+    })
   }
 
   const clearErrors = () => {
-    type: CLEAR_ERRORS,
-      dispatch({
-        msg: {},
-        status: null,
-        id: null,
-      })
+    dispatch({
+      type: CLEAR_ERRORS,
+    })
   }
 
-  const value = { msg: state.value, status: state.status, id: state.id, getErrors }
+  const value = {
+    msg: state.value,
+    status: state.status,
+    id: state.id,
+    getErrors,
+    clearErrors,
+  }
 
-  return <ErrContext.Provider value={value}>{childer}</ErrContext.Provider>
+  return <ErrContext.Provider value={value}>{children}</ErrContext.Provider>
 }

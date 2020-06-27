@@ -1,15 +1,20 @@
 import { GET_ERRORS, CLEAR_ERRORS } from '../TYPES'
 
-export default (action, type) => {
-  switch (key) {
+export default (state, action) => {
+  switch (action) {
     case GET_ERRORS:
       return {
-        ...state,
-        payload,
+        ppayload: {
+          msg: action.payload.msg,
+          status: action.payload.status,
+          id: action.payload.id,
+        },
       }
     case CLEAR_ERRORS:
       return {
-        ...state,
+        msg: {},
+        status: null,
+        id: null,
       }
 
     default:
