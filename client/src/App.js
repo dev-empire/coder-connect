@@ -17,7 +17,7 @@ import { GlobalStyle } from './style/Global'
 import { theme } from './style/theme'
 
 // import context
-import State from './state/AppState'
+import State from './state/app/AppState'
 
 const App = () => {
   return (

@@ -1,4 +1,4 @@
-import { SET_LOADING, GET_USERS } from './TYPES'
+import { SET_LOADING, GET_USERS } from '../TYPES'
 
 export default (state, action) => {
   switch (action.type) {

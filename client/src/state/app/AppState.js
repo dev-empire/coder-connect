@@ -4,7 +4,7 @@ import Context from './appContext'
 import AppReducer from './AppReducer'
 
 // import types
-import { SET_LOADING, GET_USERS } from './TYPES'
+import { SET_LOADING, GET_USERS } from '../TYPES'
 
 const AppState = props => {
   const { children } = props

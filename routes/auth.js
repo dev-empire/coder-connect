@@ -4,6 +4,7 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const auth = require('../middleware/auth')
 
 router.get('/', (req, res) => {
   User.find()
@@ -16,7 +17,7 @@ router.post('/', async (req, res) => {
 
   /* check if all fields are filled*/
 
-  if (!email || !password ) {
+  if (!email || !password) {
     res.status(400).json({ msg: 'Please Enter All Fields' })
   }
 
@@ -27,9 +28,8 @@ router.post('/', async (req, res) => {
 
     // COMPARE  / VALIDATE PASSWORD
 
-  bcrypt.compare(password, user.password)
-    .then(isMatch => {
-      if(!isMatch) return res.status(400).json({ msg: 'Invalid Credentials' })
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      if (!isMatch) return res.status(400).json({ msg: 'Invalid Credentials' })
 
       jwt.sign({ id: user.id }, config.get('jwtSecret'), (err, token) => {
         if (err) throw err
@@ -43,8 +43,16 @@ router.post('/', async (req, res) => {
         })
       })
     })
-  
   })
+})
+
+router.get('/user', auth, (req, res) => {
+  User.findById(req.body.id)
+    .select('-password')
+    .then(
+      (user) => res.status(200).json(user),
+      () => console.log(user)
+    )
 })
 
 module.exports = router

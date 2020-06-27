@@ -2,8 +2,6 @@ import React from 'react'
 import { Link, useLocation, matchPath } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Context from '@state/appContext'
-
 const Navbar = () => {
   // const state = React.useContext(Context)
   // const { users } = state
@@ -12,8 +10,7 @@ const Navbar = () => {
   const isProfilePage = location.pathname === '/profile' ? true : false
   const isLogin = location.pathname === '/login' ? true : false
   const isSignUp = location.pathname === '/signup' ? true : false
-  const isSettingsPage =
-    location.pathname === '/profile/settings' ? true : false
+  const isSettingsPage = location.pathname === '/profile/settings' ? true : false
 
   return (
     <Nav>
