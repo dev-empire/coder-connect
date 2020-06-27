@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Loading from '@layout/Loading'
 
 // import context
-import Context from '@state/appContext'
+import Context from '@state/app/appContext'
 
 const ChatBar = () => {
   const state = useContext(Context)
