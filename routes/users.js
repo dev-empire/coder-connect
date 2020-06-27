@@ -4,6 +4,7 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const auth = require('../middleware/auth')
 
 router.get('/', (req, res) => {
   User.find()
@@ -54,11 +55,11 @@ router.post('/', async (req, res) => {
       })
     })
   })
-  try {
-    await newUser.save().then((user) => res.json(user))
-  } catch (error) {
-    console.error(error)
-  }
+})
+router.get('/user', auth, (req, res) => {
+  User.findById(req.body.id)
+    .select('-password')
+    .then((user) => res.json(user))
 })
 
 module.exports = router
