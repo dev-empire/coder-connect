@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 router.get('/', (req, res) => {
   User.find()
@@ -37,12 +39,16 @@ router.post('/', async (req, res) => {
         if (err) throw err
         newUser.password = hash
         newUser.save().then((user) => {
-          res.json({
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            age: user.age,
-            password: user.password,
+          jwt.sign({ id: user.id }, config.get('jwtSecret'), (err, token) => {
+            if (err) throw err
+            res.json({
+              token,
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              age: user.age,
+              password: user.password,
+            })
           })
         })
       })
