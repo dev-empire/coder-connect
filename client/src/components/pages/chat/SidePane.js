@@ -9,12 +9,13 @@ import { connect } from 'react-redux'
 import { getItems } from '@actions/userActions'
 import PropTypes from 'prop-types'
 
-const SidePane = ({ users }) => {
+const SidePane = ({ user }) => {
   useEffect(() => {
-    props.getItems()
+    getItems()
   }, [])
 
-  const { users } = props.user.users
+  const { users } = user
+  // console.log(props.user)
   // if (loading) {
   //   return <Loading />
   // } else {
@@ -34,7 +35,7 @@ const SidePane = ({ users }) => {
 
 SidePane.propTypes = {
   getItems: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 const Body = styled.div`
