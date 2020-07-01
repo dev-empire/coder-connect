@@ -16,6 +16,16 @@ import {
 export const loadUser = () => (dispath, getState) => {
   dispath({ type: USER_LOADING })
 
+  axios
+    .get('/auth/user', tokenConfig(getState))
+    .then(res => dispath({ type: USER_LOADED, payload: res.data }))
+    .catch(err => {
+      dispath(returnErrors(err.response.msg, err.response.status))
+      dispath({ type: AUTH_ERROR })
+    })
+}
+
+export const tokenConfig = getState => {
   // get token
   const token = getState.auth.token
 
@@ -31,11 +41,5 @@ export const loadUser = () => (dispath, getState) => {
     config.headers['x-auth-token'] = token
   }
 
-  axios
-    .get('/auth/user', config)
-    .then(res => dispath({ type: USER_LOADED, payload: res.data }))
-    .catch(err => {
-      dispath(returnErrors(err.response.msg, err.response.status))
-      dispath({ type: AUTH_ERROR })
-    })
+  return config
 }

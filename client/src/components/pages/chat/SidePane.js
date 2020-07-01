@@ -21,9 +21,9 @@ const SidePane = ({ user }) => {
   // } else {
   return (
     <Body>
-      {users.flatMap(({ _id, name }) => (
-        <div key={Math.floor(Math.random() * 1000000)}>
-          <NavLink to={`/chat/${_id}`} activeStyle={{ color: 'blue' }}>
+      {users.flatMap(({ id, name }) => (
+        <div key={id}>
+          <NavLink to={`/chat/${id}`} activeStyle={{ color: 'blue' }}>
             <Div>{name}</Div>
           </NavLink>
         </div>
