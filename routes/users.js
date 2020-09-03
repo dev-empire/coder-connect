@@ -6,10 +6,9 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 const auth = require('../middleware/auth')
 
-router.get('/', (req, res) => {
-  User.find()
-    .sort()
-    .then((users) => res.json(users))
+router.get('/users', async (req, res) => {
+  const result = await User.find({})
+  res.status(200).json(result)
 })
 
 router.post('/', async (req, res) => {
@@ -23,8 +22,11 @@ router.post('/', async (req, res) => {
 
   /* VALIDATE USER'S REGISTRATION */
 
-  User.findOne({ email }).then((user) => {
-    if (user) return res.status(400).json({ msg: 'User  Already Exits' })
+  User.findOne({ email: req.body.email }).then((user) => {
+    if (user)
+      return res
+        .status(400)
+        .json({ msg: 'User  Already Exits' })
 
     const newUser = new User({
       name,
@@ -40,17 +42,21 @@ router.post('/', async (req, res) => {
         if (err) throw err
         newUser.password = hash
         newUser.save().then((user) => {
-          jwt.sign({ id: user.id }, config.get('jwtSecret'), (err, token) => {
-            if (err) throw err
-            res.json({
-              token,
-              name: user.name,
-              email: user.email,
-              phone: user.phone,
-              age: user.age,
-              password: user.password,
-            })
-          })
+          jwt.sign(
+            { id: user.id },
+            config.get('jwtSecret'),
+            (err, token) => {
+              if (err) throw err
+              res.json({
+                token,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                age: user.age,
+                password: user.password,
+              })
+            }
+          )
         })
       })
     })

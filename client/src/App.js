@@ -1,7 +1,8 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable import/no-unresolved */
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
 import ChatPage from '@chat/ChatPage'
 import Chat from '@chat/Chat'
@@ -15,15 +16,9 @@ import Settings from '@pages/Settings'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './style/Global'
 import { theme } from './style/theme'
-
-import { Provider } from 'react-redux'
-import store from './store'
-import { loadUser } from './actions/authActions'
+import store from './store/config'
 
 const App = () => {
-  useEffect(() => {
-    store.dispatch(loadUser)
-  }, [])
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>

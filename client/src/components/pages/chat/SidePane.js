@@ -1,65 +1,57 @@
-import React, { useContext, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import * as React from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
+import * as Store from 'react-redux'
 
 import Loading from '@layout/Loading'
 
 // import redux store
-import { connect } from 'react-redux'
-import { getItems } from '@actions/userActions'
+import { getUser } from '@root/store/ducks/user'
 import PropTypes from 'prop-types'
 
-const SidePane = ({ user }) => {
-  useEffect(() => {
-    getItems()
+const SidePane = () => {
+  const state = Store.useSelector(state => state.user)
+  const dispatch = Store.useDispatch()
+
+  React.useEffect(() => {
+    dispatch(getUser())
   }, [])
+  const { users } = state
 
-  const { users } = user
-  // console.log(props.user)
-  // if (loading) {
-  //   return <Loading />
-  // } else {
-  return (
-    <Body>
-      {users.flatMap(({ id, name }) => (
-        <div key={id}>
-          <NavLink to={`/chat/${id}`} activeStyle={{ color: 'blue' }}>
-            <Div>{name}</Div>
-          </NavLink>
-        </div>
-      ))}
-    </Body>
-  )
-  // }
-}
-
-SidePane.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  if (!users) {
+    return <Loading />
+  } else {
+    return (
+      <Body>
+        {users.map(({ id, name }) => {
+          return (
+            <div key={id}>
+              <NavLink to={`/chat/${id}`} activeStyle={{ color: 'blue' }}>
+                <Div>{name}</Div>
+              </NavLink>
+            </div>
+          )
+        })}
+      </Body>
+    )
+  }
 }
 
 const Body = styled.div`
   padding: 0;
   height: 100%;
   margin: auto;
-  /* display: flex; */
   text-align: center;
-  /* background-color: ${({ theme }) => theme.primary}; */
-  /* align-items: center; */
   width: 60%;
   div {
-    a {color: #000;
+    a {
+      color: #000;
     }
-    /* text-align: center; */
-    /* justify-content: center; */
-    /* align-items: center; */
     margin: auto;
     width: 95%;
     margin-top: 1px;
     color: #000;
-  height: 2.5rem;
-    /* margin-top: 1.5rem;
-    margin-bottom: 1.5rem; */
+    height: 2.5rem;
   }
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;
@@ -70,8 +62,4 @@ const Div = styled.div`
   border-bottom: #ccc solid;
 `
 
-const mapStateToProps = state => ({
-  user: state.user,
-})
-
-export default connect(mapStateToProps, { getItems })(SidePane)
+export default SidePane

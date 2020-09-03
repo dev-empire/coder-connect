@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   res.status(200).send('Hello World...')
 })
 
-app.use('/users', require('./routes/users'))
+app.use('/api', require('./routes/users'))
 app.use('/auth', require('./routes/auth'))
 
 app.listen(4000, () => console.log('Server started...'))

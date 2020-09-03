@@ -16,14 +16,6 @@ const ChatPage = () => {
   )
 }
 
-// <Body>
-//   <SideDiv>
-//     <SideNav />
-//     <ChatBar />
-//   </SideDiv>
-//
-// </Body>
-
 const Body = styled.div`
   height: 93.7vh;
   display: flex;
