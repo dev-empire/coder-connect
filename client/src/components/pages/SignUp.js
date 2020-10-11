@@ -2,31 +2,29 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Login = () => {
-  return (
-    <div style={{ overflow: 'hidden' }}>
-      <Model>
-        <H1>Sign Up</H1>
-        <Form>
-          <Label>Name </Label>
-          <Input placeholder="Enter Name..." />
-          <Label>Email </Label>
-          <Input placeholder="Enter Email..." />
-          <Label>Phone </Label>
-          <Input placeholder="Enter Phone..." />
-          <Label>Age </Label>
-          <Input placeholder="Enter Age..." />
-          <Label>Password </Label>
-          <Input placeholder="At least 8 characters!" />
-          <SignUpButton>Sign Up</SignUpButton>
-        </Form>
-        <Link to="/login">
-          <P style={{ textAlign: 'center' }}>Already A User, Login</P>
-        </Link>
-      </Model>
-    </div>
-  )
-}
+const Login = () => (
+  <div style={{ overflow: 'hidden' }}>
+    <Model>
+      <H1>Sign Up</H1>
+      <Form>
+        <Label>Name </Label>
+        <Input placeholder="Enter Name..." />
+        <Label>Email </Label>
+        <Input placeholder="Enter Email..." />
+        <Label>Phone </Label>
+        <Input placeholder="Enter Phone..." />
+        <Label>Age </Label>
+        <Input placeholder="Enter Age..." />
+        <Label>Password </Label>
+        <Input placeholder="At least 8 characters!" />
+        <SignUpButton>Sign Up</SignUpButton>
+      </Form>
+      <Link to="/login">
+        <P style={{ textAlign: 'center' }}>Already A User, Login</P>
+      </Link>
+    </Model>
+  </div>
+)
 
 const H1 = styled.h1`
   font-size: ${({ theme }) => theme.headerFont};

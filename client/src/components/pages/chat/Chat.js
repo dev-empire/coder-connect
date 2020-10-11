@@ -3,29 +3,27 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Send, ArrowLeftOutlined } from '@material-ui/icons/'
 
-const Chat = () => {
-  return (
-    <div>
-      <Link to="/chat">
-        <ArrowLeftOutlined style={{ fontSize: '60', color: '#5f9ea0' }} />
-      </Link>
-      <Div>
-        <h3 style={{ textAlign: 'center' }}>Username</h3>
-        <Msg className="container">
-          <div>
-            <Textarea name="text" cols="10" rows="2"></Textarea>
-          </div>
-          <div>
-            <Button type="submit">
-              {' '}
-              <Send fontSize="small" />
-            </Button>
-          </div>
-        </Msg>
-      </Div>
-    </div>
-  )
-}
+const Chat = () => (
+  <div>
+    <Link to="/chat">
+      <ArrowLeftOutlined style={{ fontSize: '60', color: '#5f9ea0' }} />
+    </Link>
+    <Div>
+      <h3 style={{ textAlign: 'center' }}>Username</h3>
+      <Msg className="container">
+        <div>
+          <Textarea name="text" cols="10" rows="2" />
+        </div>
+        <div>
+          <Button type="submit">
+            {' '}
+            <Send fontSize="small" />
+          </Button>
+        </div>
+      </Msg>
+    </Div>
+  </div>
+)
 
 const Div = styled.div`
   /* align-items: center; */

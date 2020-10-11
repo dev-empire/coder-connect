@@ -2,25 +2,23 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Login = () => {
-  return (
-    <div style={{ overflow: 'hidden' }}>
-      <Model>
-        <H1>Login</H1>
-        <Form>
-          <Label>Email </Label>
-          <Input placeholder="Enter Email..." />
-          <Label>Password </Label>
-          <Input placeholder="Enter Password..." />
-          <LoginButton>Login</LoginButton>
-        </Form>
-        <Link to="/signup">
-          <P style={{ textAlign: 'center' }}>Not A User, Sign up!</P>
-        </Link>
-      </Model>
-    </div>
-  )
-}
+const Login = () => (
+  <div style={{ overflow: 'hidden' }}>
+    <Model>
+      <H1>Login</H1>
+      <Form>
+        <Label>Email </Label>
+        <Input placeholder="Enter Email..." />
+        <Label>Password </Label>
+        <Input placeholder="Enter Password..." />
+        <LoginButton>Login</LoginButton>
+      </Form>
+      <Link to="/signup">
+        <P style={{ textAlign: 'center' }}>Not A User, Sign up!</P>
+      </Link>
+    </Model>
+  </div>
+)
 
 const H1 = styled.h1`
   font-size: ${({ theme }) => theme.headerFont};

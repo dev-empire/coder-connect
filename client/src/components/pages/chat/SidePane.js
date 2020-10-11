@@ -18,23 +18,20 @@ const SidePane = () => {
   }, [])
   const { users } = state
 
-  if (!users) {
+  if (!users.length) {
     return <Loading />
-  } else {
-    return (
-      <Body>
-        {users.map(({ id, name }) => {
-          return (
-            <div key={id}>
-              <NavLink to={`/chat/${id}`} activeStyle={{ color: 'blue' }}>
-                <Div>{name}</Div>
-              </NavLink>
-            </div>
-          )
-        })}
-      </Body>
-    )
   }
+  return (
+    <Body>
+      {users.map(user => (
+        <div key={user._id}>
+          <NavLink to={`/chat/${user._id}`} activeStyle={{ color: 'blue' }}>
+            <Name>{user.name}</Name>
+          </NavLink>
+        </div>
+      ))}
+    </Body>
+  )
 }
 
 const Body = styled.div`
@@ -58,7 +55,7 @@ const Body = styled.div`
   }
 `
 
-const Div = styled.div`
+const Name = styled.div`
   border-bottom: #ccc solid;
 `
 

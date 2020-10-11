@@ -1,4 +1,5 @@
 import Axios from 'axios'
+
 export const GET_USER = 'chat-hub/get-user'
 export const LOADING = 'chat-hub/loadingr'
 
@@ -31,16 +32,14 @@ export default Reducer
 
 // action
 
-export const getUser = () => {
-  return async dispatch => {
-    try {
-      const res = await Axios.get('http://localhost:4000/api/users')
-      dispatch({
-        type: GET_USER,
-        payload: res.data,
-      })
-    } catch (error) {
-      console.error(error)
-    }
+export const getUser = () => async dispatch => {
+  try {
+    const res = await Axios.get('http://localhost:4000/api/users')
+    dispatch({
+      type: GET_USER,
+      payload: res.data,
+    })
+  } catch (error) {
+    console.error(error)
   }
 }

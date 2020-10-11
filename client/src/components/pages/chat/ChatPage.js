@@ -3,18 +3,16 @@ import styled from 'styled-components'
 import ChatBar from './SidePane'
 import SideNav from './SideNav'
 
-const ChatPage = () => {
-  return (
-    <Body>
-      <SideDiv>
-        <SideNav />
-      </SideDiv>
-      <Div>
-        <ChatBar />
-      </Div>
-    </Body>
-  )
-}
+const ChatPage = () => (
+  <Body>
+    <SideDiv>
+      <SideNav />
+    </SideDiv>
+    <Div>
+      <ChatBar />
+    </Div>
+  </Body>
+)
 
 const Body = styled.div`
   height: 93.7vh;

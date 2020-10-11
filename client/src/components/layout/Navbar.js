@@ -6,11 +6,11 @@ const Navbar = () => {
   // const state = React.useContext(Context)
   // const { users } = state
   const location = useLocation()
-  const isChatPage = location.pathname === '/chat' ? true : false
-  const isProfilePage = location.pathname === '/profile' ? true : false
-  const isLogin = location.pathname === '/login' ? true : false
-  const isSignUp = location.pathname === '/signup' ? true : false
-  const isSettingsPage = location.pathname === '/profile/settings' ? true : false
+  const isChatPage = location.pathname === '/chat'
+  const isProfilePage = location.pathname === '/profile'
+  const isLogin = location.pathname === '/login'
+  const isSignUp = location.pathname === '/signup'
+  const isSettingsPage = location.pathname === '/profile/settings'
 
   return (
     <Nav>

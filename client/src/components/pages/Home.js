@@ -1,20 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import SideBar from '../layout/SideBar'
 import People from '@material-ui/icons/People'
+import SideBar from '../layout/SideBar'
 
-const Home = () => {
-  return (
-    <Body>
-      <SideDiv>
-        <SideBar />
-      </SideDiv>
-      <Div>
-        Join Others, Stay Connected! <br /> <People style={{ fontSize: 125 }} />
-      </Div>
-    </Body>
-  )
-}
+const Home = () => (
+  <Body>
+    <SideDiv>
+      <SideBar />
+    </SideDiv>
+    <Div>
+      Join Others, Stay Connected! <br /> <People style={{ fontSize: 125 }} />
+    </Div>
+  </Body>
+)
 
 const Body = styled.div`
   height: 93.7vh;

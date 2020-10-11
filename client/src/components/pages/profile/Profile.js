@@ -1,37 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import ProfilePic from './ProfilePic'
 import { Person, Phone, Face, Flag, SettingsApplications } from '@material-ui/icons'
+import ProfilePic from './ProfilePic'
 
-const Profile = () => {
-  return (
-    <Body>
-      <Left>
-        <ProfilePic />
-      </Left>
-      <Div>
-        <div>
-          Name <Person fontSize="small" />
-        </div>
-        <div>
-          Age <Face fontSize="small" />
-        </div>
-        <div>
-          Country <Flag fontSize="small" />
-        </div>
-        <div>
-          Phone <Phone fontSize="small" />
-        </div>
-        <Link to="/profile/settings">
-          <H3>
-            Go To Settings <SettingsApplications fontSize="large" />
-          </H3>
-        </Link>
-      </Div>
-    </Body>
-  )
-}
+const Profile = () => (
+  <Body>
+    <Left>
+      <ProfilePic />
+    </Left>
+    <Div>
+      <div>
+        Name <Person fontSize="small" />
+      </div>
+      <div>
+        Age <Face fontSize="small" />
+      </div>
+      <div>
+        Country <Flag fontSize="small" />
+      </div>
+      <div>
+        Phone <Phone fontSize="small" />
+      </div>
+      <Link to="/profile/settings">
+        <H3>
+          Go To Settings <SettingsApplications fontSize="large" />
+        </H3>
+      </Link>
+    </Div>
+  </Body>
+)
 
 const Body = styled.div`
   height: 93.7vh;

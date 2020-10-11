@@ -5,7 +5,7 @@ import { Settings, Chat, ExitToApp, Person } from '@material-ui/icons'
 
 const SideBar = () => {
   const location = useLocation()
-  const isChatPage = location.pathname === '/chat' ? true : false
+  const isChatPage = location.pathname === '/chat'
   return (
     <Div>
       <Link to="/profile">
