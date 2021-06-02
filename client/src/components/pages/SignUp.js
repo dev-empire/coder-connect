@@ -4,8 +4,8 @@ const Login = () => (
   <div style={{ margin: '2em 0' }}>
     <form className="ui form">
       <div className="field">
-        <label>First Name</label>
-        <input type="text" name="first-name" placeholder="Name" />
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Name" />
       </div>
       <div className="field">
         <label>Email</label>
@@ -13,9 +13,9 @@ const Login = () => (
       </div>
       <div className="field">
         <label>Password</label>
-        <input type="text" name="password" placeholde="Password" />
+        <input type="text" name="password" placeholder="Password" />
       </div>
-      <button className="ui button" type="submit">
+      <button className="ui secondary button" type="submit">
         Submit
       </button>
     </form>
