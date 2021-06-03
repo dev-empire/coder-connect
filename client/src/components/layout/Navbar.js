@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation, matchPath } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Navbar = () => {
@@ -13,25 +13,49 @@ const Navbar = () => {
   const isSettingsPage = location.pathname === '/profile/settings'
 
   return (
-    <Nav>
-      <Link to="/">
-        <H1>Chat Hub</H1>
+    //  <Nav>
+    //    <Link to="/">
+    //      <H1>Chat Hub</H1>
+    //    </Link>
+    //    {isChatPage || isProfilePage || isSettingsPage ? null : (
+    //      <Ul>
+    //        {isLogin ? null : (
+    //          <Link to="/login">
+    //            <Li>Login</Li>
+    //          </Link>
+    //        )}
+    //        {isSignUp ? null : (
+    //          <Link to="/signup">
+    //            <Li>Sign Up</Li>
+    //          </Link>
+    //        )}
+    //      </Ul>
+    //    )}
+    //  </Nav>
+
+    <div className="ui menu">
+      <Link to="/" className="ui item">
+        Home
       </Link>
+      <Link to="/chat" className="ui item">
+        Chat
+      </Link>
+
       {isChatPage || isProfilePage || isSettingsPage ? null : (
-        <Ul>
+        <div className="right item">
           {isLogin ? null : (
-            <Link to="/login">
-              <Li>Login</Li>
+            <Link to="/login" className="ui item secondary">
+              Log In
             </Link>
           )}
           {isSignUp ? null : (
-            <Link to="/signup">
-              <Li>Sign Up</Li>
+            <Link to="/signup" className="ui item secondary">
+              Sign Up
             </Link>
           )}
-        </Ul>
+        </div>
       )}
-    </Nav>
+    </div>
   )
 }
 
