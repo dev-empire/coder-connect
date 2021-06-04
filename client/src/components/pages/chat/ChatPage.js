@@ -1,13 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import ChatBar from './SidePane'
-import SideNav from './SideNav'
 
 const ChatPage = () => (
   <Body>
-    <SideDiv>
-      <SideNav />
-    </SideDiv>
     <Div>
       <ChatBar />
     </Div>

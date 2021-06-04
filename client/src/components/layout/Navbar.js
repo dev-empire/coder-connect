@@ -6,55 +6,37 @@ const Navbar = () => {
   // const state = React.useContext(Context)
   // const { users } = state
   const location = useLocation()
-  const isChatPage = location.pathname === '/chat'
-  const isProfilePage = location.pathname === '/profile'
   const isLogin = location.pathname === '/login'
   const isSignUp = location.pathname === '/signup'
-  const isSettingsPage = location.pathname === '/profile/settings'
 
   return (
-    //  <Nav>
-    //    <Link to="/">
-    //      <H1>Chat Hub</H1>
-    //    </Link>
-    //    {isChatPage || isProfilePage || isSettingsPage ? null : (
-    //      <Ul>
-    //        {isLogin ? null : (
-    //          <Link to="/login">
-    //            <Li>Login</Li>
-    //          </Link>
-    //        )}
-    //        {isSignUp ? null : (
-    //          <Link to="/signup">
-    //            <Li>Sign Up</Li>
-    //          </Link>
-    //        )}
-    //      </Ul>
-    //    )}
-    //  </Nav>
-
     <div className="ui menu">
       <Link to="/" className="ui item">
         Home
       </Link>
-      <Link to="/chat" className="ui item">
-        Chat
-      </Link>
-
-      {isChatPage || isProfilePage || isSettingsPage ? null : (
-        <div className="right item">
-          {isLogin ? null : (
-            <Link to="/login" className="ui item secondary">
-              Log In
-            </Link>
-          )}
-          {isSignUp ? null : (
-            <Link to="/signup" className="ui item secondary">
-              Sign Up
-            </Link>
-          )}
-        </div>
+      {isLogin || isSignUp ? null : (
+        <>
+          <Link to="/chat" className="ui item">
+            Chat
+          </Link>
+          <Link to="/profile" className="ui item">
+            Profile
+          </Link>
+        </>
       )}
+
+      <div className="right item">
+        {isLogin ? null : (
+          <Link to="/login" className="ui item secondary">
+            Log In
+          </Link>
+        )}
+        {isSignUp ? null : (
+          <Link to="/signup" className="ui item secondary">
+            Sign Up
+          </Link>
+        )}
+      </div>
     </div>
   )
 }
