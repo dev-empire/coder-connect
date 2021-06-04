@@ -10,8 +10,7 @@ import Home from '@pages/Home'
 import Navbar from '@layout/Navbar'
 import Login from '@pages/Login'
 import SignUp from '@pages/SignUp'
-import Profile from '@profile/Profile'
-import Settings from '@pages/Settings'
+import Profile from '@pages/Profile'
 
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './style/Global'
@@ -35,8 +34,7 @@ const App = () => {
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={SignUp} />
-                <Route exact path="/profile" component={Profile} />
-                <Route path="/profile/settings" component={Settings} />
+                <Route path="/profile" component={Profile} />
               </Switch>
             </div>
           </div>
