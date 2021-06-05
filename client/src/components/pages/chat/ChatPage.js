@@ -1,41 +1,38 @@
 import React from 'react'
-import styled from 'styled-components'
-import ChatBar from './SidePane'
 
-const ChatPage = () => (
-  <Body>
-    <Div>
-      <ChatBar />
-    </Div>
-  </Body>
-)
+const ChatPage = () => {
+  //   const slicedText = str => {
+  //     const sliced = str.split(' ')
+  //     const gen = sliced.map(letter => letter[0])
+  //     return gen
+  //   }
 
-const Body = styled.div`
-  height: 93.7vh;
-  display: flex;
-`
-
-const Div = styled.div`
-  /* align-items: center; */
-  text-align: center;
-  margin: auto;
-  height: 100%;
-  padding: 0;
-  flex-grow: 4;
-  color: ${({ theme }) => theme.primaryButton};
-  font-size: ${({ theme }) => theme.headerFont};
-`
-
-const SideDiv = styled.nav`
-  align-items: center;
-  height: 100%;
-  margin: auto;
-  width: 5%;
-  background-color: ${({ theme }) => theme.primaryDark};
-  color: #f4f4f4;
-  @media (max-width: ${({ theme }) => theme.mobile}) {
-    width: 15%;
-  }
-`
+  return (
+    <div className="ui container">
+      <div className="mt-2">
+        <div className="ui very relaxed divided list">
+          <div className="item">
+            <div className="content">
+              <a className="header tag">Daniel Louise</a>
+              <div className="description">Arrested Development</div>
+            </div>
+          </div>
+          <div className="item">
+            <div className="content">
+              <a className="header">Stevie Feliciano</a>
+              <div className="description">Bob's Burgers</div>
+            </div>
+          </div>
+          <div className="item">
+            <div className="content">
+              <a className="header">Elliot Fu</a>
+              <div className="description">The Godfather Part 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default ChatPage
