@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const dbConnect = require('./models/dbConnect');
+const dbConnect = require('./utils/dbConnect');
 const cors = require('cors');
 
 const app = express();
@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
 	res.status(200).send('This is an online chatting platform...');
 });
 
-app.use('/api', require('./routes/users'));
-app.use('/auth', require('./routes/auth'));
+app.use('/api', require('./routes/user'));
 
 app.listen(4100, () => console.log('Server started...'));

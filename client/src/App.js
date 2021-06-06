@@ -1,5 +1,3 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable import/no-unresolved */
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -18,6 +16,16 @@ import { theme } from './style/theme'
 import store from './store/config'
 
 const App = () => {
+  const [initialiazed, setinitialiazed] = React.useState(false)
+
+  React.useEffect(() => {}, [])
+
+  if (!initialiazed)
+    return (
+      <div className="ui mt-2 cotainer">
+        <div class="ui active centered inline loader"></div>
+      </div>
+    )
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -30,13 +38,21 @@ const App = () => {
               <Route exact path="/chat" component={ChatPage} />
               <Route path="/chat/:id" component={Chat} />
             </Switch>
-            <div className="container">
-              <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={SignUp} />
-                <Route path="/profile" component={Profile} />
-              </Switch>
+            {/* {!initialiazed ? ( */}
+            <div className="ui mt-2 cotainer">
+              <div class="ui active centered inline loader"></div>
             </div>
+            {/* ) : ( */}
+            <>
+              <div className="container">
+                <Switch>
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={SignUp} />
+                  <Route path="/profile" component={Profile} />
+                </Switch>
+              </div>
+            </>
+            {/* )} */}
           </div>
         </Router>
       </ThemeProvider>
