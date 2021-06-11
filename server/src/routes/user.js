@@ -18,10 +18,9 @@ router.get('/users', async (req, res) => {
  * Get single user by ID
  * @augments id
  */
-router.get('/:id', auth, (req, res) => {
-	User.findById(req.body.id)
-		.select('-password')
-		.then((user) => res.json(user));
+router.get('/:id', async (req, res) => {
+	const user = await User.findById(req.params.id).select('-password');
+	res.status(200).json({ user });
 });
 
 /**
@@ -33,18 +32,29 @@ router.get('/:id', auth, (req, res) => {
  * @returns A json with user's data
  */
 router.post('/users', async (req, res) => {
+	const user = await User.findOne({ email: req.body.email });
+	if (user) return res.status(400).json({ msg: 'User Already Exits' });
+
 	const { name, email, password } = req.body;
 
 	/* check if all fields are filled*/
 
-	if (!name || !email || !password) {
+	// Name field
+	if (name.length < 3) {
 		res.status(400).json({ msg: 'Please Enter All Fields' });
 	}
 
-	/* VALIDATE USER'S REGISTRATION */
+	// Email field
+	if (!email.includes('@') || email.length < 6) {
+		res.status(400).json({ msg: 'Provide a valid email' });
+	}
 
-	const user = await User.findOne({ email: req.body.email });
-	if (user) return res.status(400).json({ msg: 'User Already Exits' });
+	// Password field
+	if (password.length < 4) {
+		res.status(400).json({ msg: 'Password must greater than 5' });
+	}
+
+	/* VALIDATE USER'S REGISTRATION */
 
 	const newUser = new User({
 		name,
@@ -56,14 +66,23 @@ router.post('/users', async (req, res) => {
 			if (err) throw err;
 			newUser.password = hash;
 			newUser.save().then((user) => {
-				jwt.sign({ id: user.id }, process.env.JWT_SECRET, (err, token) => {
-					if (err) throw err;
-					res.json({
-						token,
-						name: user.name,
-						email: user.email,
-					});
-				});
+				jwt.sign(
+					{ id: user._id },
+					process.env.JWT_SECRET,
+					{ expiresIn: '3600' },
+					(err, token) => {
+						if (err) throw err;
+						res.json({
+							token,
+							name: user.name,
+							email: user.email,
+						});
+						req.cookies('connect', token, {
+							httpOnly: true,
+							maxAge: 1000 * 60 * 60,
+						});
+					}
+				);
 			});
 		});
 	});
