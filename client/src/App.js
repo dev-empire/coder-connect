@@ -16,16 +16,6 @@ import { theme } from './style/theme'
 import store from './store/config'
 
 const App = () => {
-  const [initialiazed, setinitialiazed] = React.useState(false)
-
-  React.useEffect(() => {}, [])
-
-  if (!initialiazed)
-    return (
-      <div className="ui mt-2 cotainer">
-        <div class="ui active centered inline loader"></div>
-      </div>
-    )
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -38,21 +28,13 @@ const App = () => {
               <Route exact path="/chat" component={ChatPage} />
               <Route path="/chat/:id" component={Chat} />
             </Switch>
-            {/* {!initialiazed ? ( */}
-            <div className="ui mt-2 cotainer">
-              <div class="ui active centered inline loader"></div>
+            <div className="container">
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/profile" component={Profile} />
+              </Switch>
             </div>
-            {/* ) : ( */}
-            <>
-              <div className="container">
-                <Switch>
-                  <Route path="/login" component={Login} />
-                  <Route path="/signup" component={SignUp} />
-                  <Route path="/profile" component={Profile} />
-                </Switch>
-              </div>
-            </>
-            {/* )} */}
           </div>
         </Router>
       </ThemeProvider>
