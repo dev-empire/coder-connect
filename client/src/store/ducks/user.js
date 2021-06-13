@@ -1,45 +1,35 @@
 import Axios from 'axios'
+import { GET_ALL_USERS } from './contants'
 
-export const SET = 'chat-hub/SET'
-export const CLEAR = 'chat-hub/CLEAR'
+const initialState = {
+  users: [],
+}
 
-// reducer
-const INITIAL_STATE = null
-
-const Reducer = (state = INITIAL_STATE, action = {}) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET:
+    case GET_ALL_USERS:
       return {
+        ...state,
         users: action.payload,
       }
-
-    case CLEAR:
-      return null
-
     default:
       return state
   }
 }
 
-export default Reducer
+const USER_URI = 'http://localhost:4100/api/users'
 
-// action
-
-export const setSession = session => {
-  return { session, type: SET }
-}
-export const clearSession = () => {
-  return { type: CLEAR }
+export const getAllUsers = () => async dispatch => {
+  await Axios.get(USER_URI).then(users => {
+    dispatch({ type: GET_ALL_USERS, payload: users.data })
+  })
 }
 
-// export const getUser = () => async dispatch => {
-//   try {
-//     const res = await Axios.get('http://localhost:4000/api/user/:id')
-//     dispatch({
-//       type: GET_USER,
-//       payload: res.data,
-//     })
-//   } catch (error) {
-//     console.error(error)
+// export const createUser = () => dispatch => {
+//   return async function post() {
+//     const user = Axios.post(USER_URI)
+//     dispatch({ type: CREATE_USER, payload: user })
 //   }
 // }
+
+export default userReducer

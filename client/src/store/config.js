@@ -6,7 +6,7 @@ import * as ducks from './ducks'
 
 const middlewares = [thunk]
 
-const reducers = combineReducers({ ...ducks })
+const reducers = combineReducers(ducks)
 
 const store = createStore(
   reducers,
