@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../../store/ducks/user'
 
 const Home = () => {
-  const dispatch = useDispatch()
-  const { state } = useSelector(state => ({ state }))
-  const loggedIn = true
-
-  useEffect(() => {
-    dispatch(getAllUsers())
-  }, [])
+  const loggedIn = false
 
   if (loggedIn === true) {
-    return Redirect('/chat')
+    return <Redirect to="/chat" />
   } else {
-    return <div className="ui center capitalize">Welcome</div>
+    return <Redirect to="login" />
   }
 }
 

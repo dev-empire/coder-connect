@@ -1,34 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllUsers } from '../../../store/ducks/user'
 
 const ChatPage = () => {
-  //   const slicedText = str => {
-  //     const sliced = str.split(' ')
-  //     const gen = sliced.map(letter => letter[0])
-  //     return gen
-  //   }
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllUsers())
+  }, [dispatch])
+  const { state } = useSelector(state => ({ state }))
 
   return (
     <div className="ui container">
       <div className="mt-2">
         <div className="ui very relaxed divided list">
-          <div className="item">
-            <div className="content">
-              <a className="header tag">Daniel Louise</a>
-              <div className="description">Arrested Development</div>
-            </div>
-          </div>
-          <div className="item">
-            <div className="content">
-              <a className="header">Stevie Feliciano</a>
-              <div className="description">Bob's Burgers</div>
-            </div>
-          </div>
-          <div className="item">
-            <div className="content">
-              <a className="header">Elliot Fu</a>
-              <div className="description">The Godfather Part 2</div>
-            </div>
-          </div>
+          {state.user.users.map(user => {
+            return (
+              <div className="item" key={user._id}>
+                <div className="content">
+                  <a className="header tag">{user.name}</a>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
