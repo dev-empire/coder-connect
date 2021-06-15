@@ -13,7 +13,7 @@ const SignUp = () => {
   const { email, name, password } = field
 
   const handleChange = e => {
-    setFeild({ ...field, [e.target.name]: e.target.value })
+    setField({ ...field, [e.target.name]: e.target.value })
   }
   return (
     <div style={{ margin: '2em 0' }}>
