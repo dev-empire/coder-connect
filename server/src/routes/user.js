@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const { compare } = require('bcryptjs');
+const { hashPassword } = require('../utils/hashPassword');
+const {
+	sendRefreshToken,
+	createRefreshToken,
+} = require('../utils/jwtFunctions');
 const auth = require('../middleware/auth');
 
 /**
@@ -54,38 +59,77 @@ router.post('/users', async (req, res) => {
 		res.status(400).json({ msg: 'Password must greater than 5' });
 	}
 
+	const hashedPassword = await hashPassword(password);
+
 	/* VALIDATE USER'S REGISTRATION */
 
 	const newUser = new User({
 		name,
 		email,
-		password,
+		password: hashedPassword,
 	});
-	bcrypt.genSalt(10, (err, salt) => {
-		bcrypt.hash(newUser.password, salt, (err, hash) => {
-			if (err) throw err;
-			newUser.password = hash;
-			newUser.save().then((user) => {
-				jwt.sign(
-					{ id: user._id },
-					process.env.JWT_SECRET,
-					{ expiresIn: '3600' },
-					(err, token) => {
-						if (err) throw err;
-						res.json({
-							token,
-							name: user.name,
-							email: user.email,
-						});
-						req.cookies('connect', token, {
-							httpOnly: true,
-							maxAge: 1000 * 60 * 60,
-						});
-					}
-				);
-			});
-		});
+
+	await newUser.save().then((user) => {
+		jwt.sign(
+			{ id: user._id },
+			process.env.JWT_SECRET,
+			{ expiresIn: '3600' },
+			(err, token) => {
+				if (err) throw err;
+				res.json({
+					token,
+					name: user.name,
+					email: user.email,
+				});
+				req.cookies('connect', token, {
+					httpOnly: true,
+					maxAge: 1000 * 60 * 60,
+				});
+			}
+		);
 	});
 });
 
+router.post('/user/login', async (req, res) => {
+	const { email, password } = req.body;
+	const user = await User.findOne({ email });
+	try {
+		if (!user) {
+			throw new Error('could not find user');
+		}
+
+		const valid = await compare(password, user.password);
+
+		if (!valid) {
+			throw new Error('bad password');
+		}
+		const token = createRefreshToken(user);
+		console.log(token);
+		sendRefreshToken(res, token);
+
+		return res.json({
+			status: 'success',
+			statusCode: 200,
+			user,
+		});
+	} catch (error) {
+		throw new Error(error);
+	}
+});
+
+router.get('/user/auth', auth, async (req, res, next) => {
+	const token = req.headers['x-auth-token'];
+	if (token) {
+		try {
+			const decoded = jwt.verify(token, process.env.JWT_SECRET);
+			return res.json({
+				status: 'success',
+				statusCode: 200,
+				user: decoded,
+			});
+		} catch (e) {
+			next(e);
+		}
+	}
+});
 module.exports = router;
