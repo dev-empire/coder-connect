@@ -4,11 +4,11 @@ import { getAllUsers } from '../../../store/ducks/user'
 
 const ChatPage = () => {
   const dispatch = useDispatch()
+  const { state } = useSelector(state => ({ state }))
 
   useEffect(() => {
     dispatch(getAllUsers())
   }, [dispatch])
-  const { state } = useSelector(state => ({ state }))
 
   return (
     <div className="ui container">
