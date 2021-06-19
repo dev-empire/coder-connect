@@ -52,26 +52,16 @@ router.post('/users', async (req, res) => {
 	if (err) res.status(400).json({ err });
 	const hashedPassword = await hashPassword(password);
 
-	/* VALIDATE USER'S REGISTRATION */
-
-	// const newUser = new User({
-	// 	name,
-	// 	email,
-	// 	password: hashedPassword,
-	// });
-
 	const input = {
 		name,
 		email,
 		password: hashedPassword,
 	};
 
-	const n = await User.create(input);
-	console.log(n);
-	// const token = createRefreshToken(newUser);
-	// console.log(token);
-	// sendRefreshToken(res, token);
-	return res.json({ n });
+	const newUser = await User.create(input);
+	const token = createRefreshToken(newUser);
+	sendRefreshToken(res, token);
+	return res.json({ newUser });
 });
 
 router.post('/user/login', async (req, res, next) => {
@@ -96,7 +86,6 @@ router.post('/user/login', async (req, res, next) => {
 			});
 		}
 		const token = createRefreshToken(user);
-		console.log(token);
 		sendRefreshToken(res, token);
 
 		return res.json({
