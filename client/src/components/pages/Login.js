@@ -1,10 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../../store/ducks/user'
 import { useFormik } from 'formik'
 
 const Login = () => {
   const dipatch = useDispatch()
+  const { state } = useSelector(state => ({ state }))
+  const error = state.user.error
+  const emailFieldError = error && error.field === 'email'
+  const passwordFieldError = error && error.field === 'password'
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -19,6 +23,7 @@ const Login = () => {
       <form className="ui form" onSubmit={formik.handleSubmit}>
         <div className="field">
           <label htmlFor="email">Email</label>
+          {emailFieldError && <div>{error.info} </div>}
           <input
             type="email"
             name="email"
@@ -29,6 +34,7 @@ const Login = () => {
         </div>
         <div className="field">
           <label htmlFor="password">Password</label>
+          {passwordFieldError && <div>{error.info} </div>}
           <input
             type="password"
             name="password"
