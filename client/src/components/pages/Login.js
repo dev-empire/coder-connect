@@ -5,8 +5,7 @@ import { useFormik } from 'formik'
 
 const Login = () => {
   const dipatch = useDispatch()
-  const { state } = useSelector(state => ({ state }))
-  const error = state.user.error
+  const { error } = useSelector(state => state.user)
   const emailFieldError = error && error.field === 'email'
   const passwordFieldError = error && error.field === 'password'
   const formik = useFormik({
