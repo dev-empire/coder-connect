@@ -16,8 +16,8 @@ const { validateFields } = require('../utils/validationUtil');
  * @returns An array of all the users
  */
 router.get('/users', async (req, res) => {
-	const result = await User.find({}).select('-password');
-	res.status(200).json(result);
+	const response = await User.find({}).select('-password');
+	res.status(200).json({ response });
 });
 
 /**
@@ -26,7 +26,7 @@ router.get('/users', async (req, res) => {
  */
 router.get('/:id', async (req, res) => {
 	const user = await User.findById(req.params.id).select('-password');
-	res.status(200).json({ user });
+	res.status(200).json({ response: user });
 });
 
 /**
@@ -41,9 +41,11 @@ router.post('/users', async (req, res) => {
 	const user = await User.findOne({ email: req.body.email });
 	if (user)
 		return res.status(400).json({
-			success: false,
-			statusCode: 400,
-			info: 'User already exists',
+			response: {
+				success: false,
+				statusCode: 400,
+				info: 'User already exists',
+			},
 		});
 
 	const { name, email, password } = req.body;
@@ -70,9 +72,11 @@ router.post('/user/login', async (req, res, next) => {
 	try {
 		if (!user) {
 			res.status(400).json({
-				status: 'failed',
-				statusCode: 400,
-				info: 'Could not find user',
+				response: {
+					field: 'email',
+					statusCode: 400,
+					info: 'Could not find user',
+				},
 			});
 		}
 
@@ -80,18 +84,26 @@ router.post('/user/login', async (req, res, next) => {
 
 		if (!valid) {
 			res.status(400).json({
-				status: 'failed',
-				statusCode: 400,
-				info: 'Incorrect password',
+				response: {
+					field: 'password',
+					statusCode: 400,
+					info: 'Incorrect password',
+				},
 			});
 		}
 		const token = createRefreshToken(user);
 		sendRefreshToken(res, token);
 
 		return res.json({
-			status: 'success',
-			statusCode: 200,
-			user,
+			response: {
+				status: 'success',
+				statusCode: 200,
+				user: {
+					id: user.id,
+					name: user.name,
+					email: user.email,
+				},
+			},
 		});
 	} catch (err) {
 		next(err);
@@ -104,9 +116,11 @@ router.get('/user/auth', auth, async (req, res, next) => {
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
 			return res.json({
-				status: 'success',
-				statusCode: 200,
-				user: decoded,
+				response: {
+					status: 'success',
+					statusCode: 200,
+					user: decoded,
+				},
 			});
 		} catch (err) {
 			next(err);
