@@ -1,19 +1,29 @@
 import Axios from 'axios'
-import { LOGIN_USER, GET_ALL_USERS } from './contants'
+import { LOGIN_USER, GET_ALL_USERS, CREATE_ERROR } from '../constants'
 
 const initialState = {
   users: [],
   name: null,
   isAuthenticated: false,
+  error: null,
+  loading: false,
   //   token: cookie.get('auth-token'),
 }
 
-const userReducer = (state = initialState, action) => {
+const Reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_USERS:
       return {
         ...state,
         users: action.payload,
+        loading: false,
+      }
+
+    case CREATE_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
       }
 
     case LOGIN_USER:
@@ -21,6 +31,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         name: action.payload,
+        loading: false,
       }
 
     default:
@@ -28,13 +39,19 @@ const userReducer = (state = initialState, action) => {
   }
 }
 
+export default Reducer
+
 const USER_URI = 'http://localhost:4100/api/users'
 
 export const getAllUsers = () => async dispatch => {
-  await Axios.get(USER_URI).then(users => {
-    console.log(users.data)
-    dispatch({ type: GET_ALL_USERS, payload: users.data })
-  })
+  try {
+    await Axios.get(USER_URI).then(users => {
+      dispatch({ type: GET_ALL_USERS, payload: users.data.response })
+    })
+  } catch (error) {
+    console.log('Error', error)
+    dispatch({ type: CREATE_ERROR, payload: error.response.data.response })
+  }
 }
 
 export const loginUser = data => async dispatch => {
@@ -42,11 +59,9 @@ export const loginUser = data => async dispatch => {
     const res = await (
       await Axios.post('http://localhost:4100/api/user/login', data)
     ).data
-    console.log(res)
-    dispatch({ type: LOGIN_USER, payload: res })
+    console.log('data', res)
+    dispatch({ type: LOGIN_USER, payload: res.response })
   } catch (error) {
-    console.log(error)
+    dispatch({ type: CREATE_ERROR, payload: error.response.data.response })
   }
 }
-
-export default userReducer
