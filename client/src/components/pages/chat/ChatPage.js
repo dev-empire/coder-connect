@@ -6,6 +6,8 @@ const ChatPage = () => {
   const dispatch = useDispatch()
   const { state } = useSelector(state => ({ state }))
 
+  const users = state.user.users
+
   useEffect(() => {
     dispatch(getAllUsers())
   }, [dispatch])
@@ -14,7 +16,7 @@ const ChatPage = () => {
     <div className="ui container">
       <div className="mt-2">
         <div className="ui very relaxed divided list">
-          {state.user.users.map(user => {
+          {users.map(user => {
             return (
               <div className="item" key={user._id}>
                 <div className="content">
