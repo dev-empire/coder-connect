@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { getAllUsers } from '../../../store/ducks/user'
 
 const ChatPage = () => {
   const dispatch = useDispatch()
-  const { state } = useSelector(state => ({ state }))
-
-  const users = state.user.users
+  const { isAuthenticated, users } = useSelector(state => state.user)
 
   useEffect(() => {
     dispatch(getAllUsers())
-  }, [dispatch])
+  }, [dispatch, isAuthenticated])
+
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />
+  }
 
   return (
     <div className="ui container">
