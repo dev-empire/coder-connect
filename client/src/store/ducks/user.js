@@ -30,15 +30,14 @@ const Reducer = (state = initialState, action) => {
     case CREATE_USER:
       return {
         ...state,
-        currUser: action.payload,
+        user: action.payload,
         loading: false,
       }
 
     case LOGIN_USER:
-      console.log(action.payload)
       return {
         ...state,
-        currUser: action.payload,
+        user: action.payload,
         isAuthenticated: true,
         loading: false,
       }
@@ -58,7 +57,6 @@ export const getAllUsers = () => async dispatch => {
       dispatch({ type: GET_ALL_USERS, payload: users.data.response })
     })
   } catch (error) {
-    console.log('Error', error)
     dispatch({ type: CREATE_ERROR, payload: error.response.data.response })
   }
 }
@@ -68,7 +66,6 @@ export const loginUser = data => async dispatch => {
     const res = await (
       await Axios.post('http://localhost:4100/api/user/login', data)
     ).data
-    console.log('data', res)
     dispatch({ type: LOGIN_USER, payload: res.response.user })
   } catch (error) {
     dispatch({ type: CREATE_ERROR, payload: error.response.data.response })
