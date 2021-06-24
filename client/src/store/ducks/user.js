@@ -1,9 +1,10 @@
 import Axios from 'axios'
-import { LOGIN_USER, GET_ALL_USERS, CREATE_ERROR } from '../constants'
+// import cookie from 'js-cookie'
+import { LOGIN_USER, GET_ALL_USERS, CREATE_ERROR, CREATE_USER } from '../constants'
 
 const initialState = {
   users: [],
-  name: null,
+  user: null,
   isAuthenticated: false,
   error: null,
   loading: false,
@@ -26,11 +27,19 @@ const Reducer = (state = initialState, action) => {
         loading: false,
       }
 
+    case CREATE_USER:
+      return {
+        ...state,
+        currUser: action.payload,
+        loading: false,
+      }
+
     case LOGIN_USER:
       console.log(action.payload)
       return {
         ...state,
-        name: action.payload,
+        currUser: action.payload,
+        isAuthenticated: true,
         loading: false,
       }
 
@@ -60,7 +69,7 @@ export const loginUser = data => async dispatch => {
       await Axios.post('http://localhost:4100/api/user/login', data)
     ).data
     console.log('data', res)
-    dispatch({ type: LOGIN_USER, payload: res.response })
+    dispatch({ type: LOGIN_USER, payload: res.response.user })
   } catch (error) {
     dispatch({ type: CREATE_ERROR, payload: error.response.data.response })
   }
